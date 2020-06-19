@@ -17,8 +17,8 @@ public class Draw implements Visitor<Void> {
 	private final Paint paint;
 
 	public Draw(final Canvas canvas, final Paint paint) {
-		this.canvas = null; // FIXME
-		this.paint = null; // FIXME
+		this.canvas = canvas; // FIXME attempt
+		this.paint = paint; // FIXME attempt
 		paint.setStyle(Style.STROKE);
 	}
 
@@ -30,7 +30,10 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onStrokeColor(final StrokeColor c) {
+		canvas.drawColor(c.getColor());
 
+		//FIXME: IS DRAW COLOR THE RIGHT CALL HERE? WHAT ARE WE DOING WITH C.GETSHAPE? WHAT ABOUT this.PAINT??
+		//Maybe we need to use c.getShape and then use a visitor to change the color?
 		return null;
 	}
 
@@ -54,7 +57,7 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onRectangle(final Rectangle r) {
-
+		canvas.drawRect(0, 0, r.getWidth(), r.getHeight(), paint);
 		return null;
 	}
 
