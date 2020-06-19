@@ -66,6 +66,7 @@ public class Draw implements Visitor<Void> {
 	@Override
 	public Void onOutline(Outline o) {
 
+		paint.setStyle(Paint.Style.STROKE);
 		return null;
 	}
 
