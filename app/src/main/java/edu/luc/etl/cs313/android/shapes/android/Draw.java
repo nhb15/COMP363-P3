@@ -30,16 +30,18 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onStrokeColor(final StrokeColor c) {
-		canvas.drawColor(c.getColor());
+		//canvas.drawColor(c.getColor());
+		paint.setColor(c.getColor());
 
 		//FIXME: IS DRAW COLOR THE RIGHT CALL HERE? WHAT ARE WE DOING WITH C.GETSHAPE? WHAT ABOUT this.PAINT??
+		//CORRECTION: I THINK SETCOLOR ON PAINT IS MORE LIKELY
 		//Maybe we need to use c.getShape and then use a visitor to change the color?
 		return null;
 	}
 
 	@Override
 	public Void onFill(final Fill f) {
-
+		paint.setStyle(Paint.Style.FILL);
 		return null;
 	}
 
