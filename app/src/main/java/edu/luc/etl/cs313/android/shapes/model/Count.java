@@ -7,6 +7,7 @@ package edu.luc.etl.cs313.android.shapes.model;
 public class Count implements Visitor<Integer> {
 
 	// TODO entirely your job
+	//would this just use group and check types?? confused how this could even work.
 
 	@Override
 	public Integer onPolygon(final Polygon p) {
@@ -21,6 +22,8 @@ public class Count implements Visitor<Integer> {
 	@Override
 	public Integer onGroup(final Group g) {
 		return -1;
+
+		//for loop to count individual children
 	}
 
 	@Override

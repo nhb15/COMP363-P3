@@ -19,6 +19,7 @@ public class Outline implements Shape {
 	@Override
 	public <Result> Result accept(final Visitor<Result> v) {
 		// TODO your job
+		//standard implementation
 		return null;
 	}
 }

@@ -41,6 +41,8 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onFill(final Fill f) {
+
+		//should it be FILL_AND_STROKE?
 		paint.setStyle(Paint.Style.FILL);
 		return null;
 	}
@@ -48,6 +50,7 @@ public class Draw implements Visitor<Void> {
 	@Override
 	public Void onGroup(final Group g) {
 
+		//visit each child to draw it i guess
 		return null;
 	}
 
@@ -55,6 +58,7 @@ public class Draw implements Visitor<Void> {
 	public Void onLocation(final Location l) {
 
 		canvas.translate(l.getX(), l.getY());
+		//FIXME: Not sure if translate is correct since it's the SHAPE's location not the cursor
 		return null;
 	}
 
@@ -73,6 +77,11 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onPolygon(final Polygon s) {
+
+		//can use onGroup
+
+		//an N sized polygon has N lines
+		//canvas.drawLines requires 4 float values to draw one line ((x,y) of each endpoint), so the size of the pt array is 4*n
 
 		final float[] pts = null;
 
