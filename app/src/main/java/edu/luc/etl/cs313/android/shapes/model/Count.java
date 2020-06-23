@@ -11,12 +11,12 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onPolygon(final Polygon p) {
-		return -1;
+		return 1;
 	}
 
 	@Override
 	public Integer onCircle(final Circle c) {
-		return -1;
+		return 1;
 	}
 
 	@Override
@@ -28,26 +28,26 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onRectangle(final Rectangle q) {
-		return -1;
+		return 1;
 	}
 
 	@Override
 	public Integer onOutline(final Outline o) {
-		return -1;
+		return 1;
 	}
 
 	@Override
 	public Integer onFill(final Fill c) {
-		return -1;
+		return 1;
 	}
 
 	@Override
 	public Integer onLocation(final Location l) {
-		return -1;
+		return 1;
 	}
 
 	@Override
 	public Integer onStrokeColor(final StrokeColor c) {
-		return -1;
+		return 1;
 	}
 }
