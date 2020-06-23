@@ -21,8 +21,8 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onGroup(final Group g) {
-		return -1;
-
+		//List l = new LinkedList;
+		return g.getShapes().size();
 		//for loop to count individual children
 	}
 
