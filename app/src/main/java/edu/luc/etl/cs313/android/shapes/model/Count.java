@@ -7,6 +7,7 @@ package edu.luc.etl.cs313.android.shapes.model;
 public class Count implements Visitor<Integer> {
 
 	// TODO entirely your job
+	int groupCount = 0;
 	//would this just use group and check types?? confused how this could even work.
 
 	@Override
@@ -22,21 +23,25 @@ public class Count implements Visitor<Integer> {
 	@Override
 	public Integer onGroup(final Group g) {
 
-		int groupCount = 0;
+		System.out.print(g.getShapes().size());
 
 		for (int i = 0; i < g.getShapes().size(); i++){
 
 			Shape groupShape = g.getShapes().get(i);
+			System.out.print(groupShape.getClass());
 
 			if (groupShape instanceof Group){
 				//groupShape.getShapes();
 				//I think we need some type of recursion here since theoretically we could have infinite groups within groups
+				System.out.print("test");
+				return onGroup((Group)groupShape);
+
 			}
 			else{
 				groupCount++;
 			}
 		}
-		return -1;
+		return groupCount;
 
 		//for loop to count individual children
 	}
