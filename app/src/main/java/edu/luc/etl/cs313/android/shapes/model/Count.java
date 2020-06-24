@@ -21,8 +21,23 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onGroup(final Group g) {
-		//List l = new LinkedList;
-		return g.getShapes().size();
+
+		int groupCount = 0;
+
+		for (int i = 0; i < g.getShapes().size(); i++){
+
+			Shape groupShape = g.getShapes().get(i);
+
+			if (groupShape instanceof Group){
+				//groupShape.getShapes();
+				//I think we need some type of recursion here since theoretically we could have infinite groups within groups
+			}
+			else{
+				groupCount++;
+			}
+		}
+		return -1;
+
 		//for loop to count individual children
 	}
 

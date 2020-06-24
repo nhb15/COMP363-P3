@@ -43,7 +43,7 @@ public class Draw implements Visitor<Void> {
 	public Void onFill(final Fill f) {
 
 		//should it be FILL_AND_STROKE?
-		paint.setStyle(Paint.Style.FILL);
+		paint.setStyle(Paint.Style.FILL_AND_STROKE);
 		return null;
 	}
 
@@ -51,6 +51,7 @@ public class Draw implements Visitor<Void> {
 	public Void onGroup(final Group g) {
 
 		//visit each child to draw it i guess
+		//get simpler ones working first
 		return null;
 	}
 
