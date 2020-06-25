@@ -25,22 +25,31 @@ public class Count implements Visitor<Integer> {
 
 		System.out.print(g.getShapes().size());
 
+		/**
+		 * NOTES:
+		 * So in looking at this, when we go through the shapes in the list, ALL of them are locations since that's how they start out in fixtures.
+		 * SO, I think we need to look at onLocation since location can house groups...I don't think onGroup even gets called as it is now for those "groups" groupMiddle and groupComplex. *
+		 *
+		 */
+
 		for (int i = 0; i < g.getShapes().size(); i++){
 
 			Shape groupShape = g.getShapes().get(i);
-			System.out.print(groupShape.getClass());
+
+			System.out.print(groupShape instanceof Location);
+
 
 			if (groupShape instanceof Group){
 				//groupShape.getShapes();
 				//I think we need some type of recursion here since theoretically we could have infinite groups within groups
 				System.out.print("test");
-				return onGroup((Group)groupShape);
-
+				groupCount += this.onGroup((Group)groupShape);
 			}
 			else{
 				groupCount++;
 			}
 		}
+
 		return groupCount;
 
 		//for loop to count individual children
@@ -63,6 +72,8 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onLocation(final Location l) {
+
+		System.out.println(l.getShape());
 		return 1;
 	}
 
