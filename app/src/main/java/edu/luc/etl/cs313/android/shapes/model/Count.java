@@ -29,7 +29,7 @@ public class Count implements Visitor<Integer> {
 		 * NOTES:
 		 * So in looking at this, when we go through the shapes in the list, ALL of them are locations since that's how they start out in fixtures.
 		 * SO, I think we need to look at onLocation since location can house groups...I don't think onGroup even gets called as it is now for those "groups" groupMiddle and groupComplex. *
-		 *
+		 *b
 		 */
 
 		for (int i = 0; i < g.getShapes().size(); i++){
