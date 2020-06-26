@@ -22,7 +22,7 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onGroup(final Group g) {
-
+		groupCount = 0;
 		System.out.print(g.getShapes().size());
 
 		/**
@@ -38,13 +38,14 @@ public class Count implements Visitor<Integer> {
 
 			System.out.print(groupShape instanceof Location);
 
+			if (groupShape instanceof Location){
+				groupCount+= onLocation((Location)groupShape);
 
-			if (groupShape instanceof Group){
-				//groupShape.getShapes();
-				//I think we need some type of recursion here since theoretically we could have infinite groups within groups
-				System.out.print("test");
-				groupCount += this.onGroup((Group)groupShape);
 			}
+			else if (groupShape instanceof Group) {
+				groupCount+= onGroup((Group) groupShape);
+			}
+
 			else{
 				groupCount++;
 			}
@@ -74,7 +75,15 @@ public class Count implements Visitor<Integer> {
 	public Integer onLocation(final Location l) {
 
 		System.out.println(l.getShape());
-		return 1;
+
+		if (l.getShape() instanceof Group){
+
+			return onGroup((Group)l.getShape());
+
+		}
+		else {
+			return 1;
+		}
 	}
 
 	@Override
