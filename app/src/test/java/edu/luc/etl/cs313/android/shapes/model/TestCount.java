@@ -48,14 +48,15 @@ public class TestCount {
 	}
 
 	@Test
-	public void testGroupSimple() {
-		assertEquals(2, simpleGroup.accept(v).intValue());
-	}
 
-	@Test
-	public void testGroupMiddle() {
-		assertEquals(3, middleGroup.accept(v).intValue()); 
-	}
+	public void testGroupSimple() {
+            assertEquals(2, simpleGroup.accept(v).intValue());
+        }
+
+        @Test
+        public void testGroupMiddle() {
+            assertEquals(3, middleGroup.accept(v).intValue());
+        }
 
 	@Test
 	public void testGroupComplex() {
