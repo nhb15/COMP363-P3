@@ -7,6 +7,7 @@ public class Point extends Location {
 
 	// TODO your job
 	// HINT: use a circle with radius 0 as the shape!
+	//Attempt below"
 
 	public Point(final int x, final int y) {
 		super(x, y, new Circle(0));
