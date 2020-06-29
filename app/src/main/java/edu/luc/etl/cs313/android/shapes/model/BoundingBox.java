@@ -17,7 +17,28 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onFill(final Fill f) {
-		return null;
+
+		Shape shapeFill = f.getShape();
+		//What's the correct way to do this? What if fill holds a group or something? 
+
+		 if (shapeFill instanceof Rectangle){
+		 	Location loc = onRectangle((Rectangle)shapeFill);
+
+		 	return loc;
+		 }
+		 else if (shapeFill instanceof Circle){
+		 	Location loc = onCircle((Circle)shapeFill);
+
+		 	return loc;
+		 }
+		 else if (shapeFill instanceof Polygon){
+		 	Location loc = onPolygon((Polygon)shapeFill);
+
+		 	return loc;
+		 }
+		 else {
+		 	return null;
+		 }
 	}
 
 	@Override
@@ -29,7 +50,8 @@ public class BoundingBox implements Visitor<Location> {
 	@Override
 	public Location onLocation(final Location l) {
 
-		return null;
+		//Location already has the shape inside of it, so we can just return the location that is input.
+		return l;
 	}
 
 	@Override
@@ -37,8 +59,8 @@ public class BoundingBox implements Visitor<Location> {
 		final int width = r.getWidth();
 		final int height = r.getHeight();
 
-		return new Location(-width, -height, new Rectangle(2 * width, 2 * height));
-		
+		return new Location(0, 0, new Rectangle(width, height));
+
 	}
 
 	@Override
