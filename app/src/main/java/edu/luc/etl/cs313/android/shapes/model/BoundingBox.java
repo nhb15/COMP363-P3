@@ -65,6 +65,21 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onStrokeColor(final StrokeColor c) {
+		if(c.getShape() instanceof Rectangle){
+			Rectangle outlineRectangle = (Rectangle)c.getShape();
+			final int width = outlineRectangle.getWidth();
+			final int height = outlineRectangle.getHeight();
+
+			return new Location(0, 0, new Rectangle(width, height));
+		}
+
+		if(c.getShape() instanceof Circle){
+			Circle outlineCircle = (Circle)c.getShape();
+			final int radius = outlineCircle.getRadius();
+			return new Location(-radius, -radius, new Rectangle(2 * radius, 2 * radius));
+		}
+
+
 		return null;
 	}
 
