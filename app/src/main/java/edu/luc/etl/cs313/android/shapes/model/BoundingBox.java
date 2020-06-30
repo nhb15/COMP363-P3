@@ -68,52 +68,14 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onStrokeColor(final StrokeColor c) {
-		if(c.getShape() instanceof Rectangle){
-			Rectangle outlineRectangle = (Rectangle)c.getShape();
-			final int width = outlineRectangle.getWidth();
-			final int height = outlineRectangle.getHeight();
 
-			return new Location(0, 0, new Rectangle(width, height));
-		}
-
-		if(c.getShape() instanceof Circle){
-			Circle outlineCircle = (Circle)c.getShape();
-			final int radius = outlineCircle.getRadius();
-			return new Location(-radius, -radius, new Rectangle(2 * radius, 2 * radius));
-		}
-
-		if (c.getShape() instanceof Polygon) {
-			//complete for onPolygon, then use here as well
-		}
-
-		return null;
+		return c.getShape().accept(this);
 	}
 
 	@Override
 	public Location onOutline(final Outline o) {
 
-		//grabbed shape from outline object, ran test for rect, cast object to rect, then return
-		//same line of code we have for onRectangle, maybe we just call onRectangle tho
-
-		if(o.getShape() instanceof Rectangle){
-			Rectangle outlineRectangle = (Rectangle)o.getShape();
-			final int width = outlineRectangle.getWidth();
-			final int height = outlineRectangle.getHeight();
-
-			return new Location(0, 0, new Rectangle(width, height));
-		}
-
-		if(o.getShape() instanceof Circle){
-			Circle outlineCircle = (Circle)o.getShape();
-			final int radius = outlineCircle.getRadius();
-			return new Location(-radius, -radius, new Rectangle(2 * radius, 2 * radius));
-		}
-
-		if (o.getShape() instanceof Polygon) {
-			//complete for onPolygon, then use here as well
-		}
-
-		return null;
+		return o.getShape().accept(this);
 	}
 
 	@Override
