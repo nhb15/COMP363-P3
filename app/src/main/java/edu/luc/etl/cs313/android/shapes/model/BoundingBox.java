@@ -20,6 +20,9 @@ public class BoundingBox implements Visitor<Location> {
 
 		Shape shapeFill = f.getShape();
 		//What's the correct way to do this? What if fill holds a group or something? 
+		//Maybe we should add a clause to check if there is a stroke color, group, or outline
+		//then we can call onOutline, onGroup, or OnStrokeColor there. Though we will also want those
+		//calls to be added to onStrokeColor and onOutline to handle the same situation
 
 		 if (shapeFill instanceof Rectangle){
 		 	Location loc = onRectangle((Rectangle)shapeFill);
@@ -79,6 +82,9 @@ public class BoundingBox implements Visitor<Location> {
 			return new Location(-radius, -radius, new Rectangle(2 * radius, 2 * radius));
 		}
 
+		if (c.getShape() instanceof Polygon) {
+			//complete for onPolygon, then use here as well
+		}
 
 		return null;
 	}
@@ -103,6 +109,9 @@ public class BoundingBox implements Visitor<Location> {
 			return new Location(-radius, -radius, new Rectangle(2 * radius, 2 * radius));
 		}
 
+		if (o.getShape() instanceof Polygon) {
+			//complete for onPolygon, then use here as well
+		}
 
 		return null;
 	}
