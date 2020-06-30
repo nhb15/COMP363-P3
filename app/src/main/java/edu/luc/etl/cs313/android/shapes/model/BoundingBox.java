@@ -70,6 +70,19 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onOutline(final Outline o) {
+
+		//grabbed shape from outline object, ran test for rect, cast object to rect, then return
+		//same line of code we have for onRectangle, maybe we just call onRectangle tho
+		Shape outlineShape = o.getShape();
+		if(o.getShape() instanceof Rectangle){
+			Rectangle outlineRectangle = (Rectangle)o.getShape();
+			final int width = outlineRectangle.getWidth();
+			final int height = outlineRectangle.getHeight();
+
+			return new Location(0, 0, new Rectangle(width, height));
+		}
+
+
 		return null;
 	}
 
