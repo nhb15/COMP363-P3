@@ -80,6 +80,12 @@ public class BoundingBox implements Visitor<Location> {
 
 	@Override
 	public Location onPolygon(final Polygon s) {
+		//use a loop to check th4e x and y coordinates, using min max for both x and y
+		//can find the bounding box locations
+		for (int i = 0; i <s.getPoints().size(); i++){
+			s.getPoints().get(i).getx(); //gets x coordinate from first set of points in list of points
+			
+		}
 		return null;
 	}
 }
