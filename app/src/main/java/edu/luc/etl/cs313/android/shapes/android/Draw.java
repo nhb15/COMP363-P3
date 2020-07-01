@@ -36,7 +36,7 @@ public class Draw implements Visitor<Void> {
 
 		paint.setColor(c.getColor());
 
-		c.accept(this);
+		c.getShape().accept(this);
 
 		paint.setColor(saveColor);
 
@@ -51,7 +51,7 @@ public class Draw implements Visitor<Void> {
 		Style saveStyle = paint.getStyle();
 		//should it be FILL_AND_STROKE?
 		paint.setStyle(Paint.Style.FILL_AND_STROKE);
-		f.accept(this);
+		f.getShape().accept(this);
 		paint.setStyle(saveStyle);
 		return null;
 	}
@@ -91,7 +91,7 @@ public class Draw implements Visitor<Void> {
 
 		paint.setStyle(Paint.Style.STROKE);
 
-		o.accept(this);
+		o.getShape().accept(this);
 
 		paint.setStyle(saveStyle);
 		return null;
