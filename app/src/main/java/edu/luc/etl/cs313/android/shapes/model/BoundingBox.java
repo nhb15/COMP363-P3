@@ -46,6 +46,14 @@ public class BoundingBox implements Visitor<Location> {
 			if (boundingBoxList.get(i).getShape() instanceof Rectangle) {
 				Rectangle rect = (Rectangle) boundingBoxList.get(i).getShape();
 
+				if (xMin > boundingBoxList.get(i).getX()){
+					xMin = boundingBoxList.get(i).getX();
+				}
+
+				if (yMin > boundingBoxList.get(i).getY()){
+					yMin = boundingBoxList.get(i).getY();
+				}
+
 				if (xMax < (xMin + rect.getWidth())){
 					xMax = (xMin + rect.getWidth());
 				}
@@ -79,7 +87,7 @@ public class BoundingBox implements Visitor<Location> {
 		final int width = r.getWidth();
 		final int height = r.getHeight();
 
-		return new Location(-0, -0, new Rectangle(width, height));
+		return new Location(-0, -0, r);
 
 	}
 

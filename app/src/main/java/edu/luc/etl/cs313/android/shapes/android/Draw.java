@@ -31,7 +31,14 @@ public class Draw implements Visitor<Void> {
 	@Override
 	public Void onStrokeColor(final StrokeColor c) {
 		//canvas.drawColor(c.getColor());
+
+		int saveColor = paint.getColor();
+
 		paint.setColor(c.getColor());
+
+		c.accept(this);
+
+		paint.setColor(saveColor);
 
 		//FIXME: IS DRAW COLOR THE RIGHT CALL HERE? WHAT ARE WE DOING WITH C.GETSHAPE? WHAT ABOUT this.PAINT??
 		//CORRECTION: I THINK SETCOLOR ON PAINT IS MORE LIKELY
@@ -41,9 +48,11 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onFill(final Fill f) {
-
+		Style saveStyle = paint.getStyle();
 		//should it be FILL_AND_STROKE?
 		paint.setStyle(Paint.Style.FILL_AND_STROKE);
+		f.accept(this);
+		paint.setStyle(saveStyle);
 		return null;
 	}
 
@@ -52,6 +61,10 @@ public class Draw implements Visitor<Void> {
 
 		//visit each child to draw it i guess
 		//get simpler ones working first
+
+		for (int i = 0; i < g.getShapes().size(); i++){
+			g.getShapes().get(i).accept(this);
+		}
 		return null;
 	}
 
@@ -60,6 +73,8 @@ public class Draw implements Visitor<Void> {
 
 		canvas.translate(l.getX(), l.getY());
 		//FIXME: Not sure if translate is correct since it's the SHAPE's location not the cursor
+		l.getShape().accept(this);
+		canvas.translate(-(l.getX()),-(l.getY()) );
 		return null;
 	}
 
@@ -72,7 +87,13 @@ public class Draw implements Visitor<Void> {
 	@Override
 	public Void onOutline(Outline o) {
 
+		Style saveStyle = paint.getStyle();
+
 		paint.setStyle(Paint.Style.STROKE);
+
+		o.accept(this);
+
+		paint.setStyle(saveStyle);
 		return null;
 	}
 
