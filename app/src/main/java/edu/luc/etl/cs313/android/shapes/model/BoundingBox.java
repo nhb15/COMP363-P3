@@ -29,7 +29,20 @@ public class BoundingBox implements Visitor<Location> {
 		ArrayList<Location> boundingBoxList = new ArrayList<Location>();
 		//Currently, having issue with either sending a circle to boundingbox OR changing onLocation to visit the class will give us a rectangle BUT it gives us a negative x/y location value
 		for (int i = 0; i < g.getShapes().size(); i++){
-			Location locShape = g.getShapes().get(i).accept(this);
+
+			if (g.getShapes().get(i) instanceof Location){
+				Location locShapeTest = (Location)g.getShapes().get(i);
+
+				int locShapeTestX = locShapeTest.getX();
+				int locShapeTestY = locShapeTest.getY();
+
+			}
+			/**
+			if (g.getShapes().get(i) instanceof Circle){
+				Location locShape = new Location(g.getShapes().get(i).
+			}
+			 */
+			Location locShape = g.getShapes().get(i).accept(this); //For circle, we're losing the x=200, y=100
 
 			boundingBoxList.add(locShape);
 		}
@@ -87,7 +100,7 @@ public class BoundingBox implements Visitor<Location> {
 		final int width = r.getWidth();
 		final int height = r.getHeight();
 
-		return new Location(-0, -0, r);
+		return new Location(0, 0, r);
 
 	}
 

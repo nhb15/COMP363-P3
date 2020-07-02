@@ -1,5 +1,7 @@
 package edu.luc.etl.cs313.android.shapes.model;
 
+import java.util.List;
+
 /**
  * A visitor to compute the number of basic shapes in a (possibly complex)
  * shape.
@@ -22,6 +24,17 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onGroup(final Group g) {
+
+		groupCount = 0;
+		
+		for (int i = 0; i < g.getShapes().size(); i++){
+
+			groupCount += g.getShapes().get(i).accept(this);
+
+		}
+		return groupCount;
+
+		/**
 		groupCount = 0;
 		System.out.print(g.getShapes().size());
 
@@ -30,14 +43,13 @@ public class Count implements Visitor<Integer> {
 		 * So in looking at this, when we go through the shapes in the list, ALL of them are locations since that's how they start out in fixtures.
 		 * SO, I think we need to look at onLocation since location can house groups...I don't think onGroup even gets called as it is now for those "groups" groupMiddle and groupComplex. *
 		 *b
-		 */
+
 
 		for (int i = 0; i < g.getShapes().size(); i++){
 
 			Shape groupShape = g.getShapes().get(i);
 
 			System.out.print(groupShape instanceof Location);
-
 
 			/*if (groupShape instanceof Location){
 				//debugging this reveals that this clause is unnecessary, as when we send the Location object
@@ -47,7 +59,15 @@ public class Count implements Visitor<Integer> {
 
 				groupCount+= onLocation((Location)groupShape);
 			}
-			*/
+
+
+			if (groupShape instanceof Location){
+				Location locShape = (Location)groupShape;
+				Shape shapeInLoc = locShape.getShape();
+				if (shapeInLoc instanceof Group){
+
+				}
+			}
 
 			if (groupShape instanceof Group) {
 				groupCount+= onGroup((Group) groupShape);
@@ -61,6 +81,7 @@ public class Count implements Visitor<Integer> {
 		return groupCount;
 
 		//for loop to count individual children
+		*/
 	}
 
 	@Override
@@ -83,6 +104,9 @@ public class Count implements Visitor<Integer> {
 
 		System.out.println(l.getShape());
 
+		return l.getShape().accept(this);
+		/**
+
 		if (l.getShape() instanceof Group){
 			//we pass a onLocation to this for complex fixture
 			//so we never enter this if statement, hence the return of 3 not six.
@@ -101,6 +125,7 @@ public class Count implements Visitor<Integer> {
 		else {
 			return 1;
 		}
+		 */
 	}
 
 	@Override
