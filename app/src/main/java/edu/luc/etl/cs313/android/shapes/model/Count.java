@@ -26,7 +26,7 @@ public class Count implements Visitor<Integer> {
 	public Integer onGroup(final Group g) {
 
 		groupCount = 0;
-		
+
 		for (int i = 0; i < g.getShapes().size(); i++){
 
 			groupCount += g.getShapes().get(i).accept(this);
@@ -91,12 +91,12 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onOutline(final Outline o) {
-		return 1;
+		return o.getShape().accept(this);
 	}
 
 	@Override
 	public Integer onFill(final Fill c) {
-		return 1;
+		return c.getShape().accept(this);
 	}
 
 	@Override
@@ -130,6 +130,6 @@ public class Count implements Visitor<Integer> {
 
 	@Override
 	public Integer onStrokeColor(final StrokeColor c) {
-		return 1;
+		return c.getShape().accept(this);
 	}
 }

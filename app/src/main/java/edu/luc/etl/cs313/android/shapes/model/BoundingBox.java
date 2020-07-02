@@ -75,13 +75,10 @@ public class BoundingBox implements Visitor<Location> {
 					yMax = yMin + rect.getHeight();
 				}
 
-
 			}
-
 		}
 
 		return new Location(xMin, yMin, new Rectangle((xMax - xMin), (yMax - yMin)));
-
 	}
 
 	@Override
