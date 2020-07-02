@@ -105,17 +105,31 @@ public class Draw implements Visitor<Void> {
 
 		int ptSize = s.getPoints().size();
 		final float[] pts = new float[4 * ptSize];
+		int j = 0;//J holds the actual pts array index
+		for (int i = 0; i < (4 * ptSize); i = i + 4){
+
+			pts[i] = s.getPoints().get(j).getx();
+			pts[i+1] = s.getPoints().get(j).gety();
+
+			if (j != (ptSize - 1)) {
+				pts[i + 2] = s.getPoints().get(j + 1).getx();
+				pts[i + 3] = s.getPoints().get(j + 1).gety();
+				j++;
+			}
+		}
+
+		pts[pts.length - 2] = s.getPoints().get(0).getx();
+		pts[pts.length - 1] = s.getPoints().get(0).gety();
+
+
+
+
 		/**
-		for (int i = 0; i < (4 * s.getPoints().size()); i = i + 4){
-
-			pts[i] = s.getPoints().get(i / 4).getx();
-			pts[i+1] = s.getPoints().get(i).gety();
-
-			pts[i+2] = s.getPoints().get(i+1).getx();
-			pts[i+3] = s.getPoints().get(i+1).gety();
+		for (int i = 0; i < (4 * s.getPoints().size()); i = i++){
+			System.out.println(pts[i] + ", " );
 
 		}
-		 */
+		/**
 		int j = 0;
 		for (int i = 0; i < ptSize; i = i++){
 
@@ -127,9 +141,10 @@ public class Draw implements Visitor<Void> {
 			j++;
 
 		}
+		System.out.println(pts);
 
-		pts[(4 * ptSize)-4] = s.getPoints().get((4*ptSize)-4).getx();
-
+		//pts[(4 * ptSize)-4] = s.getPoints().get((4*ptSize)-4).getx();
+		*/
 		canvas.drawLines(pts, paint);
 
 
