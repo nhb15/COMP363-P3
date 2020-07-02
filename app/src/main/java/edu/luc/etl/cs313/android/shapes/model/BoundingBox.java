@@ -26,9 +26,18 @@ public class BoundingBox implements Visitor<Location> {
 	@Override
 	public Location onGroup(final Group g) {
 
+		/**
+		 * QUESTIONS:
+		 *
+		 * 1. How do we deal with the "relative" -50 value in location for circles once we get to bounding box where we need the x/y's.
+		 * 		Is it a conditional for circles?
+		 * 2.
+		 */
+
 		ArrayList<Location> boundingBoxList = new ArrayList<Location>();
 		//Currently, having issue with either sending a circle to boundingbox OR changing onLocation to visit the class will give us a rectangle BUT it gives us a negative x/y location value
 		for (int i = 0; i < g.getShapes().size(); i++){
+			/**
 
 			if (g.getShapes().get(i) instanceof Location){
 				Location locShapeTest = (Location)g.getShapes().get(i);
@@ -67,12 +76,16 @@ public class BoundingBox implements Visitor<Location> {
 					yMin = boundingBoxList.get(i).getY();
 				}
 
-				if (xMax < (xMin + rect.getWidth())){
-					xMax = (xMin + rect.getWidth());
+				/**Currently only comparing xMax to xMin and width:
+				 *
+				 */
+				System.out.println(boundingBoxList.get(i).getX());
+				if (xMax < (boundingBoxList.get(i).getX() + rect.getWidth())){
+					xMax = (boundingBoxList.get(i).getX() + rect.getWidth());
 				}
-
-				if (yMax < (yMin+ rect.getHeight())){
-					yMax = yMin + rect.getHeight();
+				System.out.println(boundingBoxList.get(i).getY());
+				if (yMax < (boundingBoxList.get(i).getY() + rect.getHeight())){
+					yMax = (boundingBoxList.get(i).getY() + rect.getHeight());
 				}
 
 			}
@@ -84,20 +97,33 @@ public class BoundingBox implements Visitor<Location> {
 	@Override
 	public Location onLocation(final Location l) {
 
+		/**
+		 * WHAT IF:
+		 * We take the XY from l location and change them based on the x/y relative of the shape
+		 */
+		/**
 		if (l.getShape() instanceof Rectangle){
 			return l;
 		}
 		else {
-			return l.getShape().accept(this);
-		}
+		 */
+		Location shapeLoc = l.getShape().accept(this);
+
+		int x = shapeLoc.getX();
+		int y = shapeLoc.getY();
+		int realX = l.getX() + x;
+		int realY = l.getY() + y;
+		return new Location(realX, realY, shapeLoc.getShape());
+
 	}
 
 	@Override
 	public Location onRectangle(final Rectangle r) {
+
 		final int width = r.getWidth();
 		final int height = r.getHeight();
 
-		return new Location(0, 0, r);
+		return new Location(+0, +0, r);
 
 	}
 
