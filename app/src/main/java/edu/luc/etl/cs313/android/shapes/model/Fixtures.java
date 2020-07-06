@@ -32,6 +32,17 @@ public class Fixtures {
 		)
 	);
 
+	public static final Shape simpleJakeShape = new StrokeColor(Color.RED, new Circle (200));
+
+	public static final Shape simpleJakeGroup = new Location(300, 250,
+			new Group(
+					new Circle(250),
+					new StrokeColor(Color.GREEN,
+							new Rectangle(300, 550)
+							)
+						)
+				) ;
+
 	public static final Shape complexGroup = new Location(50, 100,
 		new Group(
 			new Circle(20),
