@@ -6,9 +6,6 @@ package edu.luc.etl.cs313.android.shapes.model;
 
 public class Point extends Location {
 
-	// TODO your job
-	// HINT: use a circle with radius 0 as the shape!
-	//Attempt below"
 
 	public int getx(){
 		return this.x;
@@ -17,6 +14,12 @@ public class Point extends Location {
 		return this.y;
 	}
 
+
+	/**
+	 * We can instantiate a point as a circle with radius 0. Each point will have a position on the canvas.
+	 * @param x is the left-right position
+	 * @param y is the up-down position
+	 */
 	public Point(final int x, final int y) {
 		super(x, y, new Circle(0));
 		assert x >= 0;

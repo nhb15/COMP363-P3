@@ -158,7 +158,7 @@ public class BoundingBox implements Visitor<Location> {
 	@Override
 	public Location onPolygon(final Polygon s) {
 
-		//Since a polygon is just a group of points, we can utilize onGroup to avoid repeating much of the same code. 
+		//Since a polygon is just a group of points, we can utilize onGroup to avoid repeating much of the same code.
 		return onGroup(s);
 
 	}

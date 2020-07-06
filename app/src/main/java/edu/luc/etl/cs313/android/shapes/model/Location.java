@@ -9,6 +9,12 @@ public class Location implements Shape {
 
 	protected final Shape shape;
 
+	/**
+	 * A Location must have an X, a Y, and a Shape to be instantiated
+	 * @param x is the left-right position on the canvas
+	 * @param y is the up-down position on the canvas
+	 * @param shape is an encased object that implements Shape
+	 */
 	public Location(final int x, final int y, final Shape shape) {
 		this.x = x;
 		this.y = y;
