@@ -150,40 +150,16 @@ public class BoundingBox implements Visitor<Location> {
 		return o.getShape().accept(this);
 	}
 
-
+	/**
+	 * onPolygon utilizes onGroup to create a bounding box for the group of points within a polygon
+	 * @param s is the polygon provided
+	 * @return the bounding box for the polygon
+	 */
 	@Override
 	public Location onPolygon(final Polygon s) {
-		//use a loop to check th4e x and y coordinates, using min max for both x and y
-		//can find the bounding box locations
 
-		int xMax = s.getPoints().get(0).getx();
-		int xMin = xMax;
+		//Since a polygon is just a group of points, we can utilize onGroup to avoid repeating much of the same code. 
+		return onGroup(s);
 
-		int yMax = s.getPoints().get(0).gety();
-		int yMin = yMax;
-
-		for (int i = 1; i <s.getPoints().size(); i++){
-			int x = s.getPoints().get(i).getx(); //gets x coordinate from first set of points in list of points
-			int y = s.getPoints().get(i).gety();
-
-			if (xMax < x){
-				xMax = x;
-			}
-
-			if (xMin > x){
-				xMin = x;
-			}
-
-			if (yMax < y){
-				yMax = y;
-			}
-
-			if (yMin > y){
-				yMin = y;
-			}
-			
-		}
-
-		return new Location(xMin, yMin, new Rectangle((xMax - xMin), (yMax - yMin)));
 	}
 }
