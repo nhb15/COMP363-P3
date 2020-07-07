@@ -46,7 +46,6 @@ public class Draw implements Visitor<Void> {
 
 	@Override
 	public Void onStrokeColor(final StrokeColor c) {
-		//canvas.drawColor(c.getColor());
 
 		int saveColor = paint.getColor();
 
@@ -67,22 +66,25 @@ public class Draw implements Visitor<Void> {
 	 * @param f onFill object to be unwrapped and drawn
 	 * @return null
 	 */
-
 	@Override
 	public Void onFill(final Fill f) {
 		Style saveStyle = paint.getStyle();
-		//should it be FILL_AND_STROKE?
+
 		paint.setStyle(Paint.Style.FILL_AND_STROKE);
 		f.getShape().accept(this);
 		paint.setStyle(saveStyle);
 		return null;
 	}
 
+	/**
+	 * onGroup draws each shape within it by redirecting method calls to their respective visitor or decorator within Draw
+	 * Each type of Shape is then handled by its own method to outsource the correct functionality
+	 * This in turn works for groups within groups as a form of recursion
+	 * @param g is the group
+	 * @return null
+	 */
 	@Override
 	public Void onGroup(final Group g) {
-
-		//visit each child to draw it i guess
-		//get simpler ones working first
 
 		for (int i = 0; i < g.getShapes().size(); i++){
 			g.getShapes().get(i).accept(this);
@@ -90,6 +92,13 @@ public class Draw implements Visitor<Void> {
 		return null;
 	}
 
+	/**
+	 * onLocation draws a "Location" which entails translating position on the canvas and drawing the shape encased inside
+	 * The positional move is taken based on the state of the Location, and the shape is drawn by the respective
+	 * visitor function. The position on the canvas is then returned to the original place.
+	 * @param l the location
+	 * @return null
+	 */
 	@Override
 	public Void onLocation(final Location l) {
 
@@ -114,6 +123,13 @@ public class Draw implements Visitor<Void> {
 		return null;
 	}
 
+	/**
+	 * onOutline draws an Outlined figure on the canvas.
+	 * First, this method saves the current Style set up. Then, we convert it to an outline, draw the shape
+	 * by visiting the appropriate method, and then reset the Style to the original state.
+	 * @param o the Outline
+	 * @return null
+	 */
 	@Override
 	public Void onOutline(Outline o) {
 
@@ -139,8 +155,6 @@ public class Draw implements Visitor<Void> {
 	@Override
 	public Void onPolygon(final Polygon s) {
 
-		//can use onGroup
-
 		//an N sized polygon has N lines
 		//canvas.drawLines requires 4 float values to draw one line ((x,y) of each endpoint), so the size of the pt array is 4*n
 
@@ -152,6 +166,7 @@ public class Draw implements Visitor<Void> {
 			pts[i] = s.getPoints().get(j).getx();
 			pts[i+1] = s.getPoints().get(j).gety();
 
+			//If we're on the last point, we don't want to grab the "next" one to avoid index error
 			if (j != (ptSize - 1)) {
 				pts[i + 2] = s.getPoints().get(j + 1).getx();
 				pts[i + 3] = s.getPoints().get(j + 1).gety();
@@ -159,11 +174,11 @@ public class Draw implements Visitor<Void> {
 			}
 		}
 
+		//Now we need to add the first X/Y to draw the very last line connecting the last point to the first one
 		pts[pts.length - 2] = s.getPoints().get(0).getx();
 		pts[pts.length - 1] = s.getPoints().get(0).gety();
 
 		canvas.drawLines(pts, paint);
-
 
 		return null;
 	}
